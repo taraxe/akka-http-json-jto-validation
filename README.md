@@ -1,3 +1,10 @@
+## Purpose
+
+You use want to use Json [jto-validation](https://github.com/jto/validation) in conjunction with [akka-http](http://doc.akka.io/docs/akka/2.4.11/scala/http/introduction.html).
+Here is a small set of missing directives and marshallers/unmarshallers to make it easy.
+
+Feel free to contribute.
+
 ## Install
 
 Add the project to your sbt project dependencies :
@@ -50,7 +57,7 @@ trait TestService extends Directives with JsonJtoValidationSupport {
         // provide a Rule and get a valid result
         expect(rule) {
           case (foo: String, bar) =>
-          complete(OK -> foo)
+            complete(OK -> foo)
         }
       }
     } ~
@@ -61,7 +68,7 @@ trait TestService extends Directives with JsonJtoValidationSupport {
           case Valid((foo, bar)) =>
             complete(OK -> foo)
           case Invalid(errs) =>
-            complete(BadRequest -> "Could not validate input")
+            complete(BadRequest -> "Could not validate json")
         }
       }
     } ~
@@ -75,7 +82,7 @@ trait TestService extends Directives with JsonJtoValidationSupport {
     } ~
     path("4") {
       post {
-        // for the lazy, use generated Rule/Write
+        // use generated Rule/Write to read an entity from Json
         entity(as[Message]) { m: Message =>
           complete(OK -> m)
         }
@@ -92,4 +99,4 @@ object WebServer extends App with TestService {
 }
 
 
-``
+```
