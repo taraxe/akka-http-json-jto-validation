@@ -19,11 +19,14 @@ trait JsonJtoValidationSupport extends Directives {
   /* Helper directive to extract JsValue */
   type JsReader[A] = Rule[JsValue, A]
   def bodyAsJson = entity(as[JsValue])
-  def validate[E](rule: JsReader[E]) = bodyAsJson.flatMap[Tuple1[E]] { js ⇒
-    rule.validate(js) match {
-      case Valid(v)      ⇒ provide(v)
-      case Invalid(errs) ⇒ reject(ValidationRejection(toJson(errs).toString, Some(JsonValidationException(errs))))
-    }
+
+  def expect[E](rule: JsReader[E]) = validate(rule).flatMap[Tuple1[E]] {
+    case Valid(v)      ⇒ provide(v)
+    case Invalid(errs) ⇒ reject(ValidationRejection(toJson(errs).toString, Some(JsonValidationException(errs))))
+  }
+
+  def validate[E](rule: JsReader[E]) = bodyAsJson.flatMap[Tuple1[VA[E]]] { js ⇒
+    provide(rule.validate(js))
   }
 
   /* Play Json Unmarshallers */
