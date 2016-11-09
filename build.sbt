@@ -56,3 +56,9 @@ ScalariformKeys.preferences := ScalariformKeys.preferences.value
   .setPreference(AlignSingleLineCaseStatements, true)
   .setPreference(DoubleIndentClassDeclaration, true)
   .setPreference(RewriteArrowSymbols, true)
+
+bintrayReleaseOnPublish in ThisBuild := false
+
+licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0.txt"))
+
+bintrayPackageLabels := Seq("akka-http", "json", "jto-validation")

@@ -3,6 +3,8 @@
 Add the project to your sbt project dependencies :
 
 ```
+resolvers += Resolver.bintrayRepo("taraxe", "maven")
+
 libraryDependencies ++= Seq(
     "com.taraxe" %% "akka-http-json-jto-validation" % "0.1.0"
 )
