@@ -4,7 +4,7 @@ Add the project to your sbt project dependencies :
 
 ```
 libraryDependencies ++= Seq(
-    "com.taraxe" %% "akka-http-jto-validation" % "0.1.0"
+    "com.taraxe" %% "akka-http-json-jto-validation" % "0.1.0"
 )
 ```
 
